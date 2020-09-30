@@ -25,11 +25,12 @@ for file in files:
                 categories[category[0].lower()][what_did] += float(how_long)
 days = len(files)
 total_hours = 0
-print(f"[Summary]: {days} days")
+# print(f"[Summary]: {days} days")
+print("Monthly report")
 for cat, dids in categories.items():
     hours = sum([x for x in dids.values()])
     total_hours += hours
-    print(f"[{cat}]: {hours} (avg: {hours/days:.2f})")
+    print(f"- {cat.title()}: {hours} (avg: {hours/days:.2f})")
     detail = ", ".join([f"{k} {v}" for k, v in sorted(dids.items(), key=lambda x:x[1], reverse=True)])
-    print(f"\t{detail}")
-print(f"total: {total_hours} (avg: {total_hours/days:.2f})")
+    print(f"  + {detail}")
+print(f"- Total: {total_hours} hours / {days} days (avg: {total_hours/days:.2f})")
