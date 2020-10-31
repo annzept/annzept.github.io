@@ -16,12 +16,14 @@ for file in files:
             if len(category) == 0:
                 continue
             print(line.strip())
-            for match in re.findall(r"\w+\s*\d+[\.\-]?\d*\s*hour", line):
+            for match in re.findall(r"\w+[\s+\w+]*\s+\d+[\.\-]?\d*\s*hour", line):
                 print('\t' + match)
-                what_did, how_long, _ = match.split(" ")
+                query_list = match.split(" ")
+                what_did = " ".join(query_list[:-2])
+                how_long = query_list[-2]
                 if "-" in how_long:
                     init, end = re.findall(r"(\d+)\-(\d+)", how_long)[0]
-                    how_long = float(init) + float(end)
+                    how_long = (float(init) + float(end)) / 2
                 categories[category[0].lower()][what_did] += float(how_long)
 days = len(files)
 total_hours = 0
